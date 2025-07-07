@@ -13,8 +13,8 @@
 
 1. Склонируйте репозиторий:
 ```bash
-git clone <ваш-репозиторий>
-cd <папка-проекта>
+git clone https://github.com/ninja152play/TestworkCSV.git
+cd TestworkCSV
 ```
 2. Установите зависимости
 ```
