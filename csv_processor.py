@@ -4,7 +4,8 @@ from typing import List, Dict, Any, Optional, Tuple
 
 class CSVProcessor:
     """Класс для обработки CSV файлов."""
-    def __init__(self, file_path:str) -> None:
+
+    def __init__(self, file_path: str) -> None:
         self.file_path = file_path
         self.data = self._load_data()
 
@@ -20,7 +21,7 @@ class CSVProcessor:
             return self.data
 
         column, operation, value = self._parse_where(where)
-        
+
         filtered_data = []
         for row in self.data:
             row_value = row.get(column)
@@ -36,7 +37,9 @@ class CSVProcessor:
 
         return filtered_data
 
-    def aggregate_data(self, where: Optional[str] = None, aggregate: Optional[str] = None) -> Dict[str, Any]:
+    def aggregate_data(
+        self, where: Optional[str] = None, aggregate: Optional[str] = None
+    ) -> Dict[str, Any]:
         """Агрегация данных по условию."""
         if not aggregate:
             raise ValueError("Aggregate parameter is required.")
@@ -51,7 +54,7 @@ class CSVProcessor:
                 numeric_values.append(value)
             except (ValueError, TypeError):
                 continue
-            
+
         if not numeric_values:
             return {operation: "No numeric values found"}
 
@@ -66,14 +69,18 @@ class CSVProcessor:
 
         return {operation: result}
 
-    def order_by_data(self, where: Optional[str] = None, order_by: Optional[str] = None) -> List[Dict[str, Any]]:
+    def order_by_data(
+        self, where: Optional[str] = None, order_by: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
         """Сортировка данных по колонке."""
         if not order_by:
             raise ValueError("Order by parameter is required.")
 
         column, order = self._parse_orderby(order_by)
         filtered_data = self.filter_data(where)
-        sorted_data = sorted(filtered_data, key=lambda x: x[column], reverse=(order == "desc"))
+        sorted_data = sorted(
+            filtered_data, key=lambda x: x[column], reverse=(order == "desc")
+        )
 
         return sorted_data
 
@@ -121,5 +128,3 @@ class CSVProcessor:
             if value1_str == value2_str:
                 return 0
             return 1 if value1_str > value2_str else -1
-
-
